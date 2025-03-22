@@ -1,0 +1,23 @@
+Estrutura do Projeto:
+
+email-service/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/example/emailservice/
+│   │   │       ├── controller/
+│   │   │       │   └── EmailController.java
+│   │   │       ├── dto/
+│   │   │       │   ├── EmailDTO.java
+│   │   │       │   ├── EmailAwsDTO.java
+│   │   │       │   └── EmailOciDTO.java
+│   │   │       ├── service/
+│   │   │       │   └── EmailService.java
+│   │   │       └── EmailServiceApplication.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+│       └── java/
+│           └── com/example/emailservice/
+│               └── EmailServiceApplicationTests.java
+└── pom.xml
