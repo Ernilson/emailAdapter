@@ -3,32 +3,25 @@ package br.com.emailAdapter.controller;
 
 import br.com.emailAdapter.dto.EmailDTO;
 import br.com.emailAdapter.service.EmailService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/email")
+@RequestMapping("/api/emails")
+@Tag(name = "Email Controller", description = "Endpoints para envio de e-mails")
 public class EmailController {
 
     @Autowired
     private EmailService emailService;
 
-//    @PostMapping("/send")
-//    public ResponseEntity<Void> sendEmail(@RequestBody EmailDTO emailDTO) {
-//        try {
-//            emailService.processEmail(emailDTO);
-//            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//    }
-
     @PostMapping("send")
-    public ResponseEntity<String> sendEmail(@RequestBody EmailDTO emailDTO) {
+    public ResponseEntity<String> sendEmail(@Validated @RequestBody EmailDTO emailDTO) {
         System.out.println("Recebido: " + emailDTO);
         return ResponseEntity.ok("E-mail enviado!");
     }
