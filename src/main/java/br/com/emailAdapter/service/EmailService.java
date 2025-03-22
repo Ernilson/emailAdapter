@@ -14,18 +14,23 @@ public class EmailService {
     @Value("${mail.integracao}")
     private String integracao;
 
+    private final ObjectMapper objectMapper; // Injeta o ObjectMapper
+
+    public EmailService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     public void processEmail(EmailDTO emailDTO) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
         String json;
 
         if ("AWS".equalsIgnoreCase(integracao)) {
             EmailAwsDTO awsDTO = new EmailAwsDTO();
             // Adaptar os dados de emailDTO para awsDTO
-            json = mapper.writeValueAsString(awsDTO);
+            json = objectMapper.writeValueAsString(awsDTO);
         } else if ("OCI".equalsIgnoreCase(integracao)) {
             EmailOciDTO ociDTO = new EmailOciDTO();
             // Adaptar os dados de emailDTO para ociDTO
-            json = mapper.writeValueAsString(ociDTO);
+            json = objectMapper.writeValueAsString(ociDTO);
         } else {
             throw new IllegalArgumentException("Integração não suportada");
         }

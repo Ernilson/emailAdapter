@@ -29,4 +29,11 @@ public class EmailDTO {
 
     @NotBlank(message = "O conteúdo do e-mail é obrigatório.")
     private String content;
+
+    public EmailDTO(String recipientEmail, String subject, String content) {
+        this.recipientEmail = recipientEmail;
+        this.subject = subject;
+        this.content = content;
+    }
+
 }
