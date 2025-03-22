@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/emails")
+@RequestMapping("/api/email")
 @Tag(name = "Email Controller", description = "Endpoints para envio de e-mails")
 public class EmailController {
 
