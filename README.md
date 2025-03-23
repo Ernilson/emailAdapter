@@ -19,12 +19,12 @@ A aplicação permite enviar emails através de diferentes provedores (AWS e OCI
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [URL_DO_SEU_REPOSITÓRIO]
+    git clone https://github.com/Ernilson/emailAdapter.git
     ```
 
 2.  **Navegue até o diretório do projeto:**
     ```bash
-    cd [NOME_DO_PROJETO]
+    cd emailAdapter
     ```
 
 3.  **Compile e execute a aplicação usando Maven:**
