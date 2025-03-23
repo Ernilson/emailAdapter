@@ -14,15 +14,16 @@ import lombok.NoArgsConstructor;
 public class EmailOciDTO {
     @NotBlank(message = "O destinatário é obrigatório.")
     @Email(message = "O e-mail do destinatário deve ser válido.")
+    @Size(max = 40, message = "O assunto pode ter no máximo 40 caracteres.")
     private String recipientEmail;
 
     @NotBlank(message = "O nome do destinatário é obrigatório.")
     @Size(max = 50, message = "O nome do destinatário pode ter no máximo 50 caracteres.")
-    @Pattern(regexp = ".*\\S.*", message = "O nome do destinatário não pode conter apenas espaços.")
     private String recipientName;
 
     @NotBlank(message = "O remetente é obrigatório.")
     @Email(message = "O e-mail do remetente deve ser válido.")
+    @Size(max = 40, message = "O assunto pode ter no máximo 40 caracteres.")
     private String senderEmail;
 
     @NotBlank(message = "O assunto é obrigatório.")
@@ -30,5 +31,6 @@ public class EmailOciDTO {
     private String subject;
 
     @NotBlank(message = "O conteúdo do e-mail é obrigatório.")
+    @Size(max = 250, message = "O assunto pode ter no máximo 250 caracteres.")
     private String body;
 }

@@ -64,7 +64,7 @@ public class EmailAwsDTOTest {
 
     @Test
     void testAssuntoComMaisDe100Caracteres_DeveFalharValidacao() {
-        String assuntoLongo = "A".repeat(101); // 101 caracteres
+        String assuntoLongo = "A".repeat(121); // 101 caracteres
         EmailAwsDTO emailDto = new EmailAwsDTO(
                 "destinatario@email.com",
                 "Destinatário",

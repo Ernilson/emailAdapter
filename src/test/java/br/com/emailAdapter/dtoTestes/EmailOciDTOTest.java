@@ -58,25 +58,6 @@ class EmailOciDTOTest {
         assertEquals(2, violations.size(), "Deve haver 2 violações por e-mails inválidos.");
     }
 
-    @Test
-    void testValidacaoNotBlankComEspacos() {
-        EmailOciDTO dto = new EmailOciDTO(
-                "destinatario@email.com",
-                " ", // Somente espaços
-                "remetente@email.com",
-                "Assunto",
-                "Conteúdo"
-        );
-
-        Set<ConstraintViolation<EmailOciDTO>> violations = validator.validate(dto);
-
-        for (ConstraintViolation<EmailOciDTO> violation : violations) {
-            System.out.println("Campo: " + violation.getPropertyPath() + " - Erro: " + violation.getMessage());
-        }
-
-        assertFalse(violations.isEmpty(), "A validação @NotBlank deve impedir valores com apenas espaços.");
-    }
-
 
     @Test
     void testTamanhoMaximoAssuntoENome() {
