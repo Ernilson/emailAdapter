@@ -91,4 +91,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests o
 
 Este projeto está sob a licença [MIT](LICENSE) (ou a licença de sua escolha).
 
-![Texto alternativo da imagem](C:\Users\Ernilson Souza\Documents\projeto\projetos Java\emailAdapter-Strategy Parttern/Postman.png)
+![Requisição no Postman](images/postman.png)
