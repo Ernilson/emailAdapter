@@ -40,3 +40,6 @@ URL: http://localhost:8080/api/email/emailAwsDTO
   "subject": "Bem-vindo!",
   "body": "Seja bem-vindo ao nosso serviço."
 }
+
+swagger:
+http://localhost:8080/swagger-ui/index.html
