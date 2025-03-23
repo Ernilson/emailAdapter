@@ -14,7 +14,7 @@ public class EmailService {
     @Value("${mail.integracao}")
     private String integracao;
 
-    private final ObjectMapper objectMapper; // Injeta o ObjectMapper
+    private final ObjectMapper objectMapper;
 
     public EmailService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
