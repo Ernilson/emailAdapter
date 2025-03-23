@@ -1,94 +1,71 @@
-# Desafio Back-end Viasoft - Serviço de Envio de Email
+# Email Adapter - Validação de DTOs
 
-Este projeto consiste em uma API RESTful para envio de emails, implementando um sistema de adaptação para diferentes provedores (AWS e OCI) com base em configurações dinâmicas.
+Este projeto tem como objetivo validar objetos de transferência de dados (DTOs) para envio de e-mails utilizando Jakarta Validation (Bean Validation) e JUnit para testes.
 
-## Descrição
+## Tecnologias Utilizadas
 
-A aplicação permite enviar emails através de diferentes provedores (AWS e OCI) sem modificar o objeto de entrada. A escolha do provedor é feita através de uma configuração no arquivo `application.properties`. O objeto de entrada é adaptado para o formato específico do provedor selecionado.
-
-## Requisitos
-
--   Java 17
--   Maven
--   Spring Web
--   Spring Boot
--   Swagger (springdoc-openapi-starter-webmvc-ui)
--   Postman (ou ferramenta similar para testar a API)
-
-## Como Executar
-
-1.  **Clone o repositório:**
-    ```bash
-    git clone https://github.com/Ernilson/emailAdapter.git
-    ```
-
-2.  **Navegue até o diretório do projeto:**
-    ```bash
-    cd emailAdapter
-    ```
-
-3.  **Compile e execute a aplicação usando Maven:**
-    ```bash
-    mvn spring-boot:run
-    ```
-
-4.  **Acesse o Swagger UI:**
-    -   Abra o navegador e acesse `http://localhost:8080/swagger-ui/index.html`.
-
-5.  **Configure o provedor no `application.properties`:**
-    -   Abra o arquivo `src/main/resources/application.properties`.
-    -   Defina a propriedade `mail.integracao` com `AWS` ou `OCI`.
-        ```properties
-        mail.integracao=AWS # ou OCI
-        ```
-    -   Reinicie a aplicação para que a configuração seja aplicada.
-
-6.  **Teste os endpoints com Postman ou Swagger UI:**
-    -   Use o Swagger UI ou Postman para enviar requisições POST para `/api/email`.
-    -   O corpo da requisição deve ser um objeto JSON no formato `EmailDTO`.
-    -   A aplicação adaptará o objeto para o formato correto (AWS ou OCI) com base na configuração.
+- **Java 17+**
+- **Jakarta Validation (Hibernate Validator)**
+- **JUnit 5**
+- **Maven**
+- **Lombok**
 
 ## Estrutura do Projeto
 
--   `src/main/java/br/com/emailAdapter/`: Pacote principal da aplicação.
-    -   `config/`: Classes de configuração (Swagger).
-    -   `controller/`: Classes Controller para expor os endpoints.
-    -   `dto/`: Classes DTO para transferência de dados.
-    -   `service/`: Classes de serviço com a lógica de adaptação.
--   `src/main/resources/`: Recursos da aplicação (application.properties).
+O projeto contém:
 
-## Classes DTO
+- **DTOs**: Classes que representam os dados de envio de e-mails.
+  - `EmailOciDTO`: DTO utilizado para o envio de e-mails via Oracle Cloud Infrastructure (OCI).
+- **Testes Unitários**: Testes para validar as restrições dos DTOs.
+  - `EmailOciDTOTest`: Classe que verifica se as anotações de validação estão funcionando corretamente.
 
--   `EmailDTO`: Classe DTO para a requisição de entrada.
--   `EmailAwsDTO`: Classe DTO para formatação de dados para AWS.
--   `EmailOciDTO`: Classe DTO para formatação de dados para OCI.
+## Como Executar os Testes
 
-## Configuração
+1. Clone este repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/email-adapter.git
+   cd email-adapter
+   ```
+2. Compile o projeto e execute os testes:
+   ```sh
+   mvn clean test
+   ```
 
--   `application.properties`:
-    -   `mail.integracao`: Configura o provedor de email (`AWS` ou `OCI`).
+## Exemplos de Validação
 
-## Padrões de Design
+O DTO `EmailOciDTO` possui as seguintes validações:
 
--   **Strategy Pattern:** Para adaptar os dados para diferentes provedores.
--   **Adapter Pattern:** Adapta o objeto de entrada para os formatos específicos dos provedores.
--   **Camadas (Layers):** A aplicação é estruturada em camadas para melhor organização e manutenção.
+- `recipientEmail`: Não pode estar em branco e deve ser um e-mail válido.
+- `recipientName`: Não pode estar em branco e deve ter no máximo 50 caracteres.
+- `senderEmail`: Não pode estar em branco e deve ser um e-mail válido.
+- `subject`: Não pode estar em branco e deve ter no máximo 100 caracteres.
+- `body`: Não pode estar em branco.
 
-## Testes
+Exemplo de uso do DTO:
 
--   Este projeto inclui testes unitários para validar a lógica de adaptação.
-
-## Status da Aplicação
-
--   Retorna `204 No Content` em caso de sucesso.
--   Retorna `400 Bad Request` ou `500 Internal Server Error` em caso de falha.
+```java
+EmailOciDTO dto = new EmailOciDTO(
+    "destinatario@email.com",
+    "Nome Destinatário",
+    "remetente@email.com",
+    "Assunto",
+    "Conteúdo do e-mail"
+);
+Set<ConstraintViolation<EmailOciDTO>> violations = validator.validate(dto);
+System.out.println("Erros de validação: " + violations.size());
+```
 
 ## Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou relatar problemas.
+Contribuições são bem-vindas! Para contribuir:
+
+1. Fork o repositório.
+2. Crie uma branch com sua feature: `git checkout -b minha-feature`.
+3. Commit suas alterações: `git commit -m 'Minha nova funcionalidade'`.
+4. Push para sua branch: `git push origin minha-feature`.
+5. Abra um Pull Request.
 
 ## Licença
 
-Este projeto está sob a licença [MIT](LICENSE) (ou a licença de sua escolha).
+Este projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo [LICENSE](LICENSE).
 
-![Requisição no Postman](images/postman.png)
