@@ -1,69 +1,92 @@
-## Projeto Devsibre
+# Desafio Back-end Viasoft - Serviço de Envio de Email
 
-## Sobre o projeto
+Este projeto consiste em uma API RESTful para envio de emails, implementando um sistema de adaptação para diferentes provedores (AWS e OCI) com base em configurações dinâmicas.
 
-- Plataforma para gerenciamento de movimentação de Formularios, Agenda, Inventarios e Cobranças.
+## Descrição
 
-## Ferramentas:
+A aplicação permite enviar emails através de diferentes provedores (AWS e OCI) sem modificar o objeto de entrada. A escolha do provedor é feita através de uma configuração no arquivo `application.properties`. O objeto de entrada é adaptado para o formato específico do provedor selecionado.
 
-- JDK 8
-- IDE Eclipse (STS4)
-- Maven
-- Docker/Docker-Compose
+## Requisitos
 
-## Frameworks e Tecnologias:
-- Spring Boot / Data
-- Frameworks Spring/jpa
-- Hibernate
-- Padrão MVC
-- Interface web com Bootstrap
-- Testes de Integração com JUnit 5
-- Thymeleaf como template engine
+-   Java 17
+-   Maven
+-   Spring Web
+-   Spring Boot
+-   Swagger (springdoc-openapi-starter-webmvc-ui)
+-   Postman (ou ferramenta similar para testar a API)
 
-## Banco de Dados:
-- Mysql
-- Nome do Banco: devsibredb
+## Como Executar
 
-## EXECUTE
-- mvn clean install
+1.  **Clone o repositório:**
+    ```bash
+    git clone [URL_DO_SEU_REPOSITÓRIO]
+    ```
 
-## Acesso ao Frontend do Projeto
-- http://localhost:8080/
-- http://localhost:8080/agendas_User
-- http://localhost:8080/Entrar
-- http://localhost:8080/swagger-ui/index.html
-<br><br>
+2.  **Navegue até o diretório do projeto:**
+    ```bash
+    cd [NOME_DO_PROJETO]
+    ```
 
-## TELA INICIAL
-![Tela Inicial](https://github.com/JuhLima85/devsibre/assets/89745459/a0a6ebec-7ef5-45e3-bfc6-e375c68b6a91)
+3.  **Compile e execute a aplicação usando Maven:**
+    ```bash
+    mvn spring-boot:run
+    ```
 
-## TELA DE LOGIN
-![Tela de Login](https://github.com/JuhLima85/devsibre/assets/89745459/e4c892de-bbb1-4675-9bf2-76afaa194b36)
+4.  **Acesse o Swagger UI:**
+    -   Abra o navegador e acesse `http://localhost:8080/swagger-ui/index.html`.
 
-## TELA DE MINISTÉRIOS
-![Tela Minstérios](https://github.com/JuhLima85/devsibre/assets/89745459/0894cc73-a5f1-435d-bc29-e6b2effa63a8)
+5.  **Configure o provedor no `application.properties`:**
+    -   Abra o arquivo `src/main/resources/application.properties`.
+    -   Defina a propriedade `mail.integracao` com `AWS` ou `OCI`.
+        ```properties
+        mail.integracao=AWS # ou OCI
+        ```
+    -   Reinicie a aplicação para que a configuração seja aplicada.
 
-## TELA CADASTRO
-![Tela Cadastro](https://github.com/JuhLima85/devsibre/assets/89745459/0a3bdd90-46af-47a0-87d2-fc0da66c997e)
+6.  **Teste os endpoints com Postman ou Swagger UI:**
+    -   Use o Swagger UI ou Postman para enviar requisições POST para `/api/email`.
+    -   O corpo da requisição deve ser um objeto JSON no formato `EmailDTO`.
+    -   A aplicação adaptará o objeto para o formato correto (AWS ou OCI) com base na configuração.
 
-## TELA DE COBRANÇA
-![Tela de Cobrança](https://github.com/Ernilson/devsibre/assets/30840118/97b8d018-9853-4e68-bfaf-89e5a694afbc)
+## Estrutura do Projeto
 
-## TELA PATRIMONIO
-![Tela de Patrimonio](https://github.com/Ernilson/devsibre/assets/30840118/126dbff2-243d-4f2a-90e6-67701c0ebd3a)
+-   `src/main/java/br/com/emailAdapter/`: Pacote principal da aplicação.
+    -   `config/`: Classes de configuração (Swagger).
+    -   `controller/`: Classes Controller para expor os endpoints.
+    -   `dto/`: Classes DTO para transferência de dados.
+    -   `service/`: Classes de serviço com a lógica de adaptação.
+-   `src/main/resources/`: Recursos da aplicação (application.properties).
 
-## TELA RELATORIO DE CADASTRO
-![Tela de Relatorio](https://github.com/Ernilson/devsibre/assets/30840118/def69275-eaf5-4682-b4fe-99379fa65891)
+## Classes DTO
 
-## TELA RELATÓRIO DE DÉBITOS
-![Relatorio de Membros](https://github.com/Ernilson/devsibre/assets/30840118/23e86abb-c18d-4187-a7b2-62a02f0ae6e6)
+-   `EmailDTO`: Classe DTO para a requisição de entrada.
+-   `EmailAwsDTO`: Classe DTO para formatação de dados para AWS.
+-   `EmailOciDTO`: Classe DTO para formatação de dados para OCI.
 
-## TELA DE MODELAGEM
-![Tela de Modelagem](https://github.com/JuhLima85/devsibre/assets/89745459/9e0e1ba6-3bb4-4d2b-a6e1-75d01812e1bc)
+## Configuração
 
-## TELA INICIAL DO SWAGGER
-![Swagger](https://github.com/Ernilson/Sibre-3.0/assets/30840118/5b66ab67-df39-440e-ba67-43a0a2cc98cc)
+-   `application.properties`:
+    -   `mail.integracao`: Configura o provedor de email (`AWS` ou `OCI`).
 
-## Comandos Docker:
-- abra um terminal dentro da pasta docker
--  execute o comando: docker-compose up
+## Padrões de Design
+
+-   **Strategy Pattern:** Para adaptar os dados para diferentes provedores.
+-   **Adapter Pattern:** Adapta o objeto de entrada para os formatos específicos dos provedores.
+-   **Camadas (Layers):** A aplicação é estruturada em camadas para melhor organização e manutenção.
+
+## Testes
+
+-   Este projeto inclui testes unitários para validar a lógica de adaptação.
+
+## Status da Aplicação
+
+-   Retorna `204 No Content` em caso de sucesso.
+-   Retorna `400 Bad Request` ou `500 Internal Server Error` em caso de falha.
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou relatar problemas.
+
+## Licença
+
+Este projeto está sob a licença [MIT](LICENSE) (ou a licença de sua escolha).
